@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "rope": "cpp",
+        "*.ipp": "cpp",
+        "future": "cpp"
+    }
+}
