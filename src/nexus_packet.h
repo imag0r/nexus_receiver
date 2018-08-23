@@ -21,6 +21,12 @@ public:
 
     uint8_t humidity() const;
 
-private:
+    bool operator==(const nexus_packet& packet) const;
+  
+    bool operator!=(const nexus_packet &packet) const;
+
+    bool operator<(const nexus_packet &packet) const;
+
+  private:
     uint64_t bits_;
 };

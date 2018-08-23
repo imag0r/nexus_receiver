@@ -6,7 +6,7 @@ nexus_packet::nexus_packet() :
 }
 
 nexus_packet::nexus_packet(uint64_t bits) :
-    bits_(bits)
+    bits_(bits & 0xFFFFFFFFF)   // take only 36bits
 {
 }
 
@@ -39,4 +39,19 @@ int16_t nexus_packet::temperature() const
 uint8_t nexus_packet::humidity() const
 {
     return bits_ & 0xFF;
+}
+
+bool nexus_packet::operator==(const nexus_packet &packet) const
+{
+    return bits_ == packet.bits_;
+}
+
+bool nexus_packet::operator!=(const nexus_packet &packet) const
+{
+    return !operator==(packet);
+}
+
+bool nexus_packet::operator<(const nexus_packet &packet) const
+{
+    return bits_ < packet.bits_;
 }

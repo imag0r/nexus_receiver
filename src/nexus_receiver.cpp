@@ -1,7 +1,5 @@
 #include "nexus_receiver.h"
 
-#include <Arduino.h>
-
 nexus_receiver& nexus_receiver::instance()
 {
     static nexus_receiver inst;
@@ -18,23 +16,25 @@ nexus_receiver::nexus_receiver() :
 {
 }
 
-void nexus_receiver::setup()
+void nexus_receiver::setup(uint8_t receiver_pin)
 {
     clear_history();
 
-    Serial.begin(115200);
+    pinMode(receiver_pin, OUTPUT);
+    digitalWrite(receiver_pin, LOW);
+    pinMode(receiver_pin, INPUT);
+    digitalWrite(receiver_pin, LOW);
 
-    const uint8_t nexus_receiver_pin = 2;
-    pinMode(nexus_receiver_pin, OUTPUT);
-    digitalWrite(nexus_receiver_pin, LOW);
-    pinMode(nexus_receiver_pin, INPUT);
-    digitalWrite(nexus_receiver_pin, LOW);
-
-    attachInterrupt(nexus_receiver_pin - 2, &nexus_receiver::handle_interrupt_static, CHANGE);
+    attachInterrupt(receiver_pin - 2, &nexus_receiver::handle_interrupt_static, CHANGE);
 }
 
 void nexus_receiver::loop()
 {
+}
+
+const nexus_packet& nexus_receiver::packet() const
+{
+    return packet_;
 }
 
 void nexus_receiver::handle_interrupt_static()
@@ -63,13 +63,6 @@ void nexus_receiver::handle_interrupt()
             if (has_historical_count(packet_bits_, 4))
             {
                 packet_ = nexus_packet(packet_bits_);
-
-                Serial.print("CH: ");
-                Serial.print(packet_.channel());
-                Serial.print("\tTEMP: ");
-                Serial.print(packet_.temperature());
-                Serial.print("\tHUM: ");
-                Serial.println(packet_.humidity());
 
                 clear_history();
             }

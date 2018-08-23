@@ -7,8 +7,8 @@ class nexus_receiver
 public:
     static nexus_receiver& instance();
 
-    void setup();
-    
+    void setup(uint8_t receiver_pin = 2);
+
     void loop();
 
     const nexus_packet& packet() const;
