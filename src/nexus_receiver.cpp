@@ -1,5 +1,7 @@
 #include "nexus_receiver.h"
 
+#include <Arduino.h>
+
 nexus_receiver& nexus_receiver::instance()
 {
     static nexus_receiver inst;
@@ -67,7 +69,6 @@ void nexus_receiver::handle_interrupt()
                 clear_history();
             }
         }
-
         current_bit_ = 0;
     }
     else if (duration > duration_zero)

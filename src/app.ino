@@ -2,9 +2,9 @@
 
 #include "nexus_receiver.h"
 
-#define RF_RECEIVER_PIN 2
-
-nexus_packet prev_packet;
+namespace {
+    nexus_packet prev_packet;
+}
 
 void setup()
 {
