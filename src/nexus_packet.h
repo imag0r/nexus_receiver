@@ -7,7 +7,7 @@ class nexus_packet
 public:
     nexus_packet();
 
-    nexus_packet(uint64_t bits);
+  nexus_packet(uint64_t bits);
 
     bool valid() const;
 
@@ -21,12 +21,12 @@ public:
 
     uint8_t humidity() const;
 
-    bool operator==(const nexus_packet& packet) const;
-  
+    bool operator==(const nexus_packet &packet) const;
+
     bool operator!=(const nexus_packet &packet) const;
 
     bool operator<(const nexus_packet &packet) const;
 
-  private:
+private:
     uint64_t bits_;
 };

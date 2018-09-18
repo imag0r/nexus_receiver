@@ -1,1 +1,1 @@
-# digoo_receiver
+# nexus_receiver
